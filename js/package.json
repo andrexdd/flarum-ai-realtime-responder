@@ -1,0 +1,16 @@
+{
+  "name": "andrexdd-ai-responder",
+  "version": "1.0.0",
+  "description": "Admin dashboard integration for Andre AI Responder",
+  "main": "src/admin/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "flarum-webpack-config": "^3.0.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.0.0"
+  }
+}
