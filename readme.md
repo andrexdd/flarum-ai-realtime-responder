@@ -32,10 +32,10 @@ Configuration Setup
 Once installed, navigate to your Flarum Admin Panel under the Extensions tab to configure your interactive gateway parameters:
 
 Interactive Hook Gateway Target (API Endpoint URL):
-Input your custom microservice or mock server endpoint (e.g., https://api.fikiral.net.tr/v1/stream-ai).
+Input your custom microservice, private serverless function, or mock server endpoint. (Note: The target address https://api.fikiral.net.tr/v1/stream-ai shown in settings is strictly a localized testing placeholder. This extension does not enforce any third-party infrastructure fees or internal costs. You are entirely free to map this to your own custom AI backend infrastructure).
 
 Security Bearer Token / API Secret Authorization Key:
-Provide the authorization credentials required by your endpoint gateway.
+Provide the authorization credentials required by your own endpoint gateway server rules.
 
 Automated Bot Account Context Assignment (User Identity ID):
 Specify the internal user database ID allocated for your AI Bot profile.
