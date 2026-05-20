@@ -1,64 +1,24 @@
-# Andre AI Real-Time Responder Extension for Flarum
+# AI Realtime Responder for Flarum 2.0
 
-An enterprise-grade automation extension for Flarum that bridges your discussion board with real-time AI capabilities via secure webhook integrations. Designed specifically for developer forums and technical communities to eliminate dead threads and provide instant, context-aware support.
+An extension that automatically generates AI responses to newly started discussions using OpenAI's chat completion models.
 
----
+## Features
 
-## Directory Structure
+- Listens for newly created discussions instantly.
+- Generates contextual responses based on the discussion title and first post content.
+- Utilizes fast and cost-effective OpenAI models (`gpt-4o-mini`).
+- Built directly on top of Flarum 2.0 extension architecture.
 
-```text
-andrexdd-ai-responder/
-├── composer.json
-├── extend.php
-├── src/
-│   └── Listener/
-│       └── NewDiscussionListener.php
-└── js/
-    ├── package.json
-    ├── webpack.config.js
-    └── src/
-        └── admin/
-            └── index.js
-Architectural Features
-Event-Driven Execution: Hooks directly into Flarum's lifecycle (Flarum\Discussion\Event\Started) to intercept new discussions immediately.
+## Installation
 
-Granular Custom Blueprints: Allows full administration control over the system behavior via centralized backend configurations.
+Install manually or via composer inside your Flarum root directory:
 
-Isolated Payload Exchange: Features a payload structure utilizing customized verification signatures (X-Signature: AndreSoftwareHub).
+```bash
+composer require andrexdd/flarum-ai-realtime-responder
+Configuration
+Before running the extension, open src/Listener/SendAiResponse.php and replace the placeholder value with your actual OpenAI API key:
 
-Fault-Tolerant Fallbacks: Implements silent fail-catch blocks ensuring that even if external AI APIs drop or time out, the core Flarum board continues running safely.
-
-Configuration Setup
-Once installed, navigate to your Flarum Admin Panel under the Extensions tab to configure your interactive gateway parameters:
-
-Interactive Hook Gateway Target (API Endpoint URL):
-Input your custom microservice, private serverless function, or mock server endpoint. (Note: The target address https://api.fikiral.net.tr/v1/stream-ai shown in settings is strictly a localized testing placeholder. This extension does not enforce any third-party infrastructure fees or internal costs. You are entirely free to map this to your own custom AI backend infrastructure).
-
-Security Bearer Token / API Secret Authorization Key:
-Provide the authorization credentials required by your own endpoint gateway server rules.
-
-Automated Bot Account Context Assignment (User Identity ID):
-Specify the internal user database ID allocated for your AI Bot profile.
-
-Behavioral Directive Template Configuration (System Instructions Blueprint):
-Define the persona, boundaries, and technical expertise your AI bot should project while replying.
-
-Manual Developer Installation
-To deploy this extension directly inside your local or production environment, clone the structure or move the folder to your workbench/ directory, then enforce the autoloader rules:
-
-Bash
-# Register the extension locally via composer
-composer config repositories.andrexdd-ai-responder path "workbench/andrexdd-ai-responder"
-
-# Require the package into your active Flarum instance
-composer require andrexdd/flarum-ai-responder:*
-
-# Run the asset compiler and migrations
-php flarum migrate
-php flarum cache:clear
-License & Credits
-Developer: Andre Software (AndreXdd)
-
-Platform: Developed for high-performance Flarum forum systems.
-
-License: MIT License - Free to use, modify, and scale globally.
+PHP
+$apiKey = 'YOUR_OPENAI_API_KEY';
+License
+This project is licensed under the MIT License.
