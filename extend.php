@@ -1,19 +1,11 @@
 <?php
 
-namespace AndreXdd\AiResponder;
-
 use Flarum\Extend;
 use Flarum\Discussion\Event\Started;
-use AndreXdd\AiResponder\Listener\NewDiscussionListener;
+use Andrexdd\AiRealtimeResponder\Listener\SendAiResponse;
 
 return [
-    (new Extend\Frontend('admin'))
-        ->js(__DIR__.'/js/dist/admin.js'),
-
+    // Flarum'un yerleşik Event sistemine kanca atıyoruz
     (new Extend\Event())
-        ->listen(Started::class, NewDiscussionListener::class),
-
-    (new Extend\Settings())
-        ->serializeToForum('andreAiEndpoint', 'andrexdd-ai-responder.api_endpoint')
-        ->serializeToForum('andreAiUserId', 'andrexdd-ai-responder.ai_user_id')
+        ->listen(Started::class, SendAiResponse::class)
 ];
