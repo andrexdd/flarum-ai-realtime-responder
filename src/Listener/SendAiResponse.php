@@ -14,19 +14,14 @@ class SendAiResponse
         $discussion = $event->discussion;
         $firstPost = $discussion->firstPost;
 
-       
         if (!$firstPost) {
             return;
         }
 
-       
         $userContent = $firstPost->content;
         $discussionTitle = $discussion->title;
 
-     
         $apiKey = 'YOUR_OPENAI_API_KEY'; 
-        
-        
         $botUserId = 1; 
         $botUser = User::find($botUserId);
 
@@ -34,10 +29,9 @@ class SendAiResponse
             return;
         }
 
-        
         $url = 'https://api.openai.com/v1/chat/completions';
         $data = [
-            'model' => 'gpt-4o-mini', 
+            'model' => 'gpt-4o-mini',
             'messages' => [
                 [
                     'role' => 'system',
@@ -69,19 +63,18 @@ class SendAiResponse
                 $responseData = json_decode($response, true);
                 $aiReply = $responseData['choices'][0]['message']['content'] ?? null;
 
-               
                 if ($aiReply) {
-                    CommentPost::reply(
+                    $reply = CommentPost::reply(
                         $discussion->id,
                         $aiReply,
                         $botUser->id,
-                        '127.0.0.1' 
+                        '127.0.0.1'
                     );
+                    $reply->save();
                 }
             }
         } catch (Exception $e) {
-            
-            error_log('AI Realtime Responder Error: ' . $e->getMessage());
+            error_log($e->getMessage());
         }
     }
 }
