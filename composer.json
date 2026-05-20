@@ -1,32 +1,29 @@
 {
-    "name": "andrexdd/flarum-ai-responder",
-    "description": "Real-time Webhook AI Responder with an interactive API configuration panel.",
+    "name": "andrexdd/flarum-ai-realtime-responder",
+    "description": "Flarum 2.0 AI Realtime Responder Extension",
     "type": "flarum-extension",
-    "keywords": ["flarum", "ai", "webhook", "automation"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Andre Software",
-            "role": "Developer"
+            "name": "andrexdd"
         }
     ],
     "require": {
-        "flarum/core": "^1.0.0"
-    },
-    "extra": {
-        "flarum-extension": {
-            "title": "Andre AI Real-Time Responder",
-            "category": "automation",
-            "icon": {
-                "name": "fas fa-robot",
-                "backgroundColor": "#202124",
-                "color": "#00ffcc"
-            }
-        }
+        "flarum/core": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "AndreXdd\\AiResponder\\": "src/"
+            "Andrexdd\\AiRealtimeResponder\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "AI Realtime Responder",
+            "icon": {
+                "name": "fas fa-robot",
+                "backgroundColor": "#23a6d5",
+                "color": "#fff"
+            }
         }
     }
 }
