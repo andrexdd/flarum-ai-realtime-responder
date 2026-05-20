@@ -4,12 +4,20 @@ namespace Andrexdd\AiRealtimeResponder\Listener;
 
 use Flarum\Discussion\Event\Started;
 use Flarum\Post\CommentPost;
+use Flarum\Post\PostRepository;
 use Flarum\User\User;
 use Carbon\Carbon;
 use Exception;
 
 class SendAiResponse
 {
+    protected $posts;
+
+    public function __construct(PostRepository $posts)
+    {
+        $this->posts = $posts;
+    }
+
     public function handle(Started $event)
     {
         $discussion = $event->discussion;
@@ -73,7 +81,7 @@ class SendAiResponse
                     $reply->ip_address = '127.0.0.1';
                     $reply->type = 'comment';
                     
-                    $reply->save();
+                    $this->posts->insert($reply);
 
                     $discussion->refreshCommentCount();
                     $discussion->refreshLastPost();
