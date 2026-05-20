@@ -5,6 +5,7 @@ namespace Andrexdd\AiRealtimeResponder\Listener;
 use Flarum\Discussion\Event\Started;
 use Flarum\Post\CommentPost;
 use Flarum\User\User;
+use Carbon\Carbon;
 use Exception;
 
 class SendAiResponse
@@ -64,13 +65,19 @@ class SendAiResponse
                 $aiReply = $responseData['choices'][0]['message']['content'] ?? null;
 
                 if ($aiReply) {
-                    $reply = CommentPost::reply(
-                        $discussion->id,
-                        $aiReply,
-                        $botUser->id,
-                        '127.0.0.1'
-                    );
+                    $reply = new CommentPost();
+                    $reply->discussion_id = $discussion->id;
+                    $reply->content = $aiReply;
+                    $reply->user_id = $botUser->id;
+                    $reply->created_at = Carbon::now();
+                    $reply->ip_address = '127.0.0.1';
+                    $reply->type = 'comment';
+                    
                     $reply->save();
+
+                    $discussion->refreshCommentCount();
+                    $discussion->refreshLastPost();
+                    $discussion->save();
                 }
             }
         } catch (Exception $e) {
